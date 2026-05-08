@@ -1,0 +1,92 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #05071a; /* Background gelap ruang angkasa */
+    color: white;
+    display: flex;
+}
+
+/* Sidebar Container */
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background-color: #0a0c2e;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Section */
+.sidebar-header {
+    padding: 0 25px 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img {
+    width: 45px;
+    filter: drop-shadow(0 0 10px #7b42f5);
+}
+
+.brand-info h1 {
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: #ffffff;
+}
+
+.brand-info p {
+    font-size: 11px;
+    color: #b0b0b0;
+}
+
+/* Navigation Links */
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li {
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    color: #d1d1d1;
+    text-decoration: none;
+    font-size: 16px;
+    gap: 15px;
+}
+
+.sidebar-nav li i {
+    font-size: 18px;
+    width: 25px;
+    text-align: center;
+}
+
+/* Active & Hover States */
+.sidebar-nav li.active {
+    background: #4a3aff; /* Warna ungu terang sesuai gambar */
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    margin-right: 20px;
+}
+
+.sidebar-nav li.active a {
+    color: white;
+    font-weight: 600;
+}
+
+.sidebar-nav li:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0 30px 30px 0;
+    margin-right: 20px;
+}
