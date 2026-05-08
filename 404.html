@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Emergency Warp Drive | POLARIS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400&display=swap');
+
+        :root {
+            --bg-dark: #05071a; /* Disesuaikan dengan warna sidebar Polaris */
+            --accent-purple: #7b42f5;
+            --accent-cyan: #38bdf8;
+            --text-muted: #a0a0a0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; overflow: hidden; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; padding: 25px;
+        }
+
+        /* --- BACKGROUND BINTANG (HYPERDRIVE) --- */
+        #stars {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; z-index: -2;
+            background: #05071a;
+        }
+
+        /* --- BLACK HOLE DINAMIS --- */
+        .black-hole-v2 {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px; height: 350px;
+            background: radial-gradient(circle, #000 35%, var(--accent-purple) 60%, var(--accent-cyan) 85%, transparent 100%);
+            border-radius: 50%; z-index: -1;
+            filter: blur(40px); opacity: 0.3;
+            animation: pulse-hole-v2 6s infinite alternate;
+        }
+
+        @keyframes pulse-hole-v2 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.5; }
+        }
+
+        /* --- GLITCH 404 --- */
+        .error-code {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(80px, 18vw, 110px);
+            font-weight: 700;
+            color: white;
+            position: relative;
+            letter-spacing: 5px;
+            text-shadow: 0 0 10px var(--accent-purple), 0 0 20px var(--accent-cyan);
+            margin-bottom: 10px;
+            animation: glitch-v2 1.5s infinite;
+        }
+
+        @keyframes glitch-v2 {
+            0% { text-shadow: 0 0 10px var(--accent-purple), 0 0 20px var(--accent-cyan); }
+            5% { text-shadow: 3px 0 var(--accent-cyan), -3px 0 var(--accent-purple); transform: skew(-3deg); }
+            15% { text-shadow: 0 0 10px var(--accent-purple); transform: skew(0deg); opacity: 1; }
+            85% { text-shadow: 4px 0 var(--accent-cyan), -4px 0 var(--accent-purple); opacity: 0.6; }
+            90% { text-shadow: -3px 0 var(--accent-cyan), 3px 0 var(--accent-purple); transform: scaleY(0.9); }
+            100% { text-shadow: 0 0 10px var(--accent-purple), 0 0 20px var(--accent-cyan); }
+        }
+
+        .msg-main {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px; color: var(--accent-cyan);
+            letter-spacing: 2px; margin-bottom: 25px;
+        }
+
+        .description {
+            color: var(--text-muted);
+            font-size: 13px; line-height: 1.6;
+            max-width: 380px; margin-bottom: 45px;
+        }
+
+        /* --- TOMBOL KEMBALI (PORTAL) --- */
+        .btn-portal {
+            background: linear-gradient(45deg, var(--accent-purple), #4a3aff);
+            color: white; border: none;
+            padding: 18px 40px; border-radius: 50px; /* Lebih rounded agar modern */
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px; text-decoration: none;
+            letter-spacing: 2px; font-weight: bold;
+            box-shadow: 0 10px 25px rgba(123, 66, 245, 0.4);
+            transition: all 0.3s ease; margin-bottom: 50px;
+        }
+
+        .btn-portal:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(123, 66, 245, 0.6); }
+        .btn-portal:active { transform: scale(0.95); }
+
+        /* --- TIMER --- */
+        .timer-container {
+            border-top: 1px solid #1a1c3d;
+            padding-top: 25px; width: 240px;
+        }
+
+        .timer-text {
+            font-size: 10px; color: #555;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        #countdown {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px; color: #f59e0b;
+            margin-top: 5px; display: block;
+        }
+
+        .status-tag {
+            position: absolute; bottom: 20px;
+            font-size: 9px; color: #444; font-family: 'Orbitron';
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="stars"></canvas>
+    <div class="black-hole-v2"></div>
+
+    <h1 class="error-code">404</h1>
+    <p class="msg-main">SEKTOR TIDAK DITEMUKAN</p>
+    
+    <p class="description">
+        Maaf, koordinat yang Anda cari tidak ada dalam database <b>POLARIS</b>. Sepertinya data ini telah tersedot ke dalam lubang hitam.
+    </p>
+
+    <a href="index.html" class="btn-portal">KEMBALI KE INTI GALAKSI</a>
+
+    <div class="timer-container">
+        <span class="timer-text">Inisialisasi Warp Drive otomatis dalam :</span>
+        <span id="countdown">08</span>
+    </div>
+
+    <div class="status-tag">POLARIS EMERGENCY PROTOCOL // SECTOR-EAC</div>
+
+    <script>
+        // --- LOGIC HYPERDRIVE ---
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+        let width, height, stars = [];
+
+        function setCanvasSize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            stars = [];
+            for (let i = 0; i < 200; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    z: Math.random() * width,
+                    o: Math.random()
+                });
+            }
+        }
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize);
+
+        function drawStars() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'white';
+
+            stars.forEach(star => {
+                let px = (star.x - width / 2) * (width / star.z) + width / 2;
+                let py = (star.y - height / 2) * (width / star.z) + height / 2;
+                let size = (1 - star.z / width) * 2;
+
+                if (px >= 0 && px <= width && py >= 0 && py <= height) {
+                    ctx.globalAlpha = star.o * (1 - star.z / width);
+                    ctx.beginPath();
+                    ctx.arc(px, py, size, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+
+                star.z -= 4; 
+                if (star.z <= 0) {
+                    star.z = width;
+                    star.x = Math.random() * width;
+                    star.y = Math.random() * height;
+                }
+            });
+
+            requestAnimationFrame(drawStars);
+        }
+        drawStars();
+
+        // --- SISTEM AUTO-REDIRECT ---
+        let time = 8;
+        const display = document.getElementById('countdown');
+
+        const startTimer = setInterval(() => {
+            time--;
+            display.innerText = time < 10 ? '0' + time : time;
+
+            if (time <= 0) {
+                clearInterval(startTimer);
+                window.location.href = "index.html"; 
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
